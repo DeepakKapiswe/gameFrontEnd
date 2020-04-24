@@ -16,10 +16,11 @@ export default function DisplayGame(props) {
       .then(res => setData(res))
       .catch(err => setErrors(err));
   }
+  
 
   useEffect(() => {
     fetchData();
-  },[url,count]);
+  },[count]);
   
   if (data !== null) {
     return <GameWorld rows={data.gdRows} /> ;

@@ -1,5 +1,6 @@
 import React, { Suspense, useState, useEffect} from 'react';
 import './App.css';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -23,19 +24,33 @@ function App() {
   const turnDown  = () => { setUrl(turnDownUrl); setCount(count + 1); }
   const turnLeft  = () => { setUrl(turnLeftUrl); setCount(count + 1); }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCount(count => count + 1);
-      setUrl(moveReqUrl);
-    }, 600);
-    return () => clearInterval(interval);
-  }, []);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCount(count => count + 1);
+  //     setUrl(moveReqUrl);
+  //   }, 600);
+  //   return () => clearInterval(interval);
+  // }, []);
 
 
   return (
     <Suspense
     fallback={<LinearProgress />}>
-
+      <KeyboardEventHandler
+         handleKeys={['w','up']}
+         onKeyEvent={(key, e) => turnUp() } />
+      <KeyboardEventHandler
+         handleKeys={['d', 'right']}
+         onKeyEvent={(key, e) => turnRight() } />
+      <KeyboardEventHandler
+         handleKeys={['s','down',]}
+         onKeyEvent={(key, e) => turnDown() } />
+      <KeyboardEventHandler
+         handleKeys={['a','left']}
+         onKeyEvent={(key, e) => turnLeft() } />
+      <KeyboardEventHandler
+         handleKeys={['space', 'enter']}
+         onKeyEvent={(key, e) => move() } />
     <Grid
       container
       direction="column"
@@ -44,6 +59,7 @@ function App() {
     >
       <h1>Robo World</h1>
       <DisplayGame url={url} count={count} />
+      
       <Grid container justify="center">
         <Grid item >
           <Button
