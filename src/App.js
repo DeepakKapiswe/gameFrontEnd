@@ -7,13 +7,15 @@ import Grid from '@material-ui/core/Grid';
 import DisplayGame from './Components/DisplayGame/DisplayGame';
 import LinearProgress from './Components/Progress/LinearProgressBar';
 
-const getGameUrl = 'http://192.168.43.28:7000/getGame';
-const moveReqUrl = 'http://192.168.43.28:7000/moveReq';
-const turnUpUrl  = 'http://192.168.43.28:7000/turnUp';
-const turnRightUrl = 'http://192.168.43.28:7000/turnRight';
-const turnDownUrl  = 'http://192.168.43.28:7000/turnDown';
-const turnLeftUrl  = 'http://192.168.43.28:7000/turnLeft';
-const resetGameUrl     = 'http://192.168.43.28:7000/resetGame';
+const getGameUrl =   'http://localhost:7000/getGame';
+const moveReqUrl =   'http://localhost:7000/moveReq';
+const turnUpUrl  =   'http://localhost:7000/turnUp';
+const turnRightUrl = 'http://localhost:7000/turnRight';
+const turnDownUrl  = 'http://localhost:7000/turnDown';
+const turnLeftUrl  = 'http://localhost:7000/turnLeft';
+const resetGameUrl = 'http://localhost:7000/resetGame';
+const undoGameUrl  = 'http://localhost:7000/undoGame';
+const redoGameUrl  = 'http://localhost:7000/redoGame';
 
 
 
@@ -28,6 +30,8 @@ function App() {
   const turnDown  = () => { setUrl(turnDownUrl);  setRoboDir("DOWN"); setCount(count + 1); }
   const turnLeft  = () => { setUrl(turnLeftUrl);  setRoboDir("LEFT"); setCount(count + 1); }
   const resetGame = () => { setUrl(resetGameUrl); setCount(count + 1); }
+  const undoGame  = () => { setUrl(undoGameUrl); setCount(count + 1); }
+  const redoGame  = () => { setUrl(redoGameUrl); setCount(count + 1); }
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -38,8 +42,6 @@ function App() {
   // }, []);
 
   function RoboDir() {
-
-
   if (roboDir === "UP") {return <h2>UP</h2>; }
   if (roboDir === "RIGHT") {return <h2>RIGHT</h2>; }
   if (roboDir === "DOWN") {return <h2>DOWN</h2>; }
@@ -67,6 +69,15 @@ function App() {
       <KeyboardEventHandler
          handleKeys={['space', 'enter']}
          onKeyEvent={(key, e) => move() } />
+      <KeyboardEventHandler
+         handleKeys={['ctrl+q']}
+         onKeyEvent={(key, e) => resetGame() } />
+      <KeyboardEventHandler
+         handleKeys={['ctrl+z']}
+         onKeyEvent={(key, e) => undoGame() } />
+      <KeyboardEventHandler
+         handleKeys={['ctrl+r']}
+         onKeyEvent={(key, e) => redoGame() } />
     <Grid
       container
       direction="column"
