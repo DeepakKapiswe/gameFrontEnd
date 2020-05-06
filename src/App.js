@@ -7,15 +7,19 @@ import Grid from '@material-ui/core/Grid';
 import DisplayGame from './Components/DisplayGame/DisplayGame';
 import LinearProgress from './Components/Progress/LinearProgressBar';
 
-const getGameUrl =   'http://localhost:7000/getGame';
-const moveReqUrl =   'http://localhost:7000/moveReq';
-const turnUpUrl  =   'http://localhost:7000/turnUp';
-const turnRightUrl = 'http://localhost:7000/turnRight';
-const turnDownUrl  = 'http://localhost:7000/turnDown';
-const turnLeftUrl  = 'http://localhost:7000/turnLeft';
-const resetGameUrl = 'http://localhost:7000/resetGame';
-const undoGameUrl  = 'http://localhost:7000/undoGame';
-const redoGameUrl  = 'http://localhost:7000/redoGame';
+const localhost = 'localhost';
+const hostIp    = '192.168.43.28'; 
+
+const getGameUrl =   'http://'+hostIp+':7000/getGame';
+const moveReqUrl =   'http://'+hostIp+':7000/moveReq';
+const turnUpUrl  =   'http://'+hostIp+':7000/turnUp';
+const turnRightUrl = 'http://'+hostIp+':7000/turnRight';
+const turnDownUrl  = 'http://'+hostIp+':7000/turnDown';
+const turnLeftUrl  = 'http://'+hostIp+':7000/turnLeft';
+const resetGameUrl = 'http://'+hostIp+':7000/resetGame';
+const undoGameUrl  = 'http://'+hostIp+':7000/undoGame';
+const redoGameUrl  = 'http://'+hostIp+':7000/redoGame';
+const gameAutoPlayUrl  = 'http://'+hostIp+':7000/gameAutoPlay';
 
 
 
@@ -32,6 +36,7 @@ function App() {
   const resetGame = () => { setUrl(resetGameUrl); setCount(count + 1); }
   const undoGame  = () => { setUrl(undoGameUrl); setCount(count + 1); }
   const redoGame  = () => { setUrl(redoGameUrl); setCount(count + 1); }
+  const gameAutoPlay  = () => { setUrl(gameAutoPlayUrl); setCount(count + 1); }
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -78,6 +83,9 @@ function App() {
       <KeyboardEventHandler
          handleKeys={['ctrl+r']}
          onKeyEvent={(key, e) => redoGame() } />
+      <KeyboardEventHandler
+         handleKeys={['x']}
+         onKeyEvent={(key, e) => gameAutoPlay() } />
     <Grid
       container
       direction="column"
@@ -136,6 +144,16 @@ function App() {
             onClick = {move}
           >
             Move Robo
+            </Button>
+        </Grid>
+        <Grid item >
+          <Button
+            fullWidth
+            variant="contained"
+            color="secondary"
+            onClick = {gameAutoPlay}
+          >
+            Auto Move
             </Button>
         </Grid>
       </Grid>
